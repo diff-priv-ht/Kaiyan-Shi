@@ -1,5 +1,4 @@
 \documentclass{article}
-
 \usepackage[utf8]{inputenc}
 \usepackage[top = .4 in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,array,hyperref,color,cite,graphicx,multirow,pdflscape,mathrsfs}
@@ -31,10 +30,8 @@
 \linespread{1.15}
 \title{Week May 21, 2018}
 \author{Kaiyan Shi}
-
 \begin{document}
 \SweaveOpts{concordance=TRUE}
-
 \maketitle
 
 \section*{\textcolor{Boogie}{Monday}}
@@ -474,6 +471,52 @@ Step 2:
 
 In conclusion, $f_X(x) = \frac{1}{\sqrt{2 \pi x}}e^{-\frac{1}{2}x}$.
 
+
+\section*{{\textcolor{Boogie}{Thursday}}}
+\section*{Statistics}
+\section*{Problem 1A}
+Given $X \sim \text{Norm}(\mu,\sigma^2)$, and $\bar{X_j} = \frac{1}{n_j} \sum_{i=1}^{n_j} X_{ij}$.\\
+We know that $X_{ij}$ is independent on each other, and we know that $m_X(t) = e^{\mu t+ \frac{\sigma^2 t^2}{2}}$ for all $X_{ij}$, which is the moment generating function of normal distribution. \\
+\begin{align*}
+m_{\bar{X_j}}(t) &= m_{\frac{1}{n_j} \sum_{i=1}^{n_j} X_{ij}}(t)\\
+&= m_{\sum_{i=1}^{n_j} X_{ij}}(\frac{t}{n_j})\\
+&= m_{X_{1j}}(\frac{t}{n_j})m_{X_{1j}}(\frac{t}{n_j})... m_{X_{n_jj}}(\frac{t}{n_j})\\
+&= (e^{\mu (t/n_j)+ \frac{\sigma^2  (t/n_j)^2}{2}})^{n_j}\\
+&= e^{\mu t+ \frac{\sigma^2  t^2}{2n_j}}\\
+\end{align*}
+Therefore, $\bar{X_j} \sim \text{Norm}(\mu, \frac{\sigma^2}{n_j})$.
+
+\section*{Problem 1B}
+First, We know the following things:\\
+(a) From the condition given, $X_{ij} \sim \text{Norm}(\mu,\sigma^2)$. After standalization leads to $\frac{X_{ij}-\mu}{\sigma} \sim \text{Norm}(\mu,\sigma^2)$.\\
+(b) From Problem 1A, $\bar{X_j} \sim \text{Norm}(\mu, \frac{\sigma^2}{n_j})$. After standalization leads to $(\frac{\bar{X_j}-\mu}{\sigma})\sqrt{n_j} \sim \text{Norm}(0,1)$.\\
+(c) If $Z \sim \text{Norm}(0,1)$, $Z^2 \sim \mathcal{X}^2(1)$.\\
+(d) The moment generating function of the sum of independent variables is the product of the moment generating function of each independent variable.\\
+(e) The moment generating function of the difference of independent variables is the ratio of the moment generating function of each independent variable (can be proved from (d)).\\
+(f) Lemma $1$ and Lemma $2$.\\
+
+
+Then consider $\sum_{i=1}^{n_j} (X_{ij}-\bar{X_j})^2$.\\
+ \begin{align*}
+ \sum_{i=1}^{n_j} (X_{ij}-\bar{X_j})^2 &= \sum_{i=1}^{n_j} (X_{ij}-\mu+\mu -\bar{X_j})^2\\
+ &= \sum_{i=1}^{n_j} (X_{ij}-\mu)^2+2(\mu -\bar{X_j})\sum_{i=1}^{n_j}(X_{ij}-\mu)+n_j(\mu -\bar{X_j})^2\\
+ &= \sum_{i=1}^{n_j} (X_{ij}-\mu)^2+2(\mu -\bar{X_j})\left(-(n_j\mu)+\sum_{i=1}^{n_j}X_{ij}\right)+n_j(\bar{X_j}-\mu)^2\\
+ &= \sum_{i=1}^{n_j} (X_{ij}-\mu)^2+2(\mu -\bar{X_j})\left(-(n_j\mu)+n_j\bar{X_{j}}\right)+n_j(\bar{X_j}-\mu)^2\\
+ &= \sum_{i=1}^{n_j} (X_{ij}-\mu)^2-2n_j(\mu -\bar{X_j})(\mu - \bar{X_{j}})+n_j(\bar{X_j}-\mu)^2\\
+ &= \sum_{i=1}^{n_j} (X_{ij}-\mu)^2-2n_j(\mu -\bar{X_j})^2+n_j(\bar{X_j}-\mu)^2\\
+ &= \sum_{i=1}^{n_j} (X_{ij}-\mu)^2-n_j(\mu -\bar{X_j})^2\\
+ &= \sigma^2\left(\sum_{i=1}^{n_j} \frac{(X_{ij}-\mu)^2}{\sigma^2}-n_j\frac{(\mu -\bar{X_j})^2}{\sigma^2}\right)\\
+ \end{align*}
+
+It follows that (I need this one because I do not know how to show that $\sum_{i=1}^{n_j} \frac{(X_{ij}-\mu)^2}{\sigma^2}$ is independent of $n_j\frac{(\mu -\bar{X_j})^2}{\sigma^2}$. I only can get $ \frac{1}{\sigma^2} \sum_{i=1}^{n_j} (X_{ij}-\bar{X_j})^2$ is independent of $n_j\frac{(\mu -\bar{X_j})^2}{\sigma^2}$ which is talked about later.) $$ \sum_{i=1}^{n_j} \frac{(X_{ij}-\mu)^2}{\sigma^2} = \frac{1}{\sigma^2} \sum_{i=1}^{n_j} (X_{ij}-\bar{X_j})^2+n_j\frac{(\mu -\bar{X_j})^2}{\sigma^2}.$$\\
+
+Then first consider $\sum_{i=1}^{n_j} \frac{(X_{ij}-\mu)^2}{\sigma^2}$. As $X_{ij}$ are independent of each other, no matter which set $j$ we are looking at, $X_{ij}$ should be independent variables of each other. It follows that $\frac{(X_{ij}-\mu)^2}{\sigma^2}$ are independent variables for different $i$ as $\mu$ and $\sigma$ are just constants.\\
+
+By (a), we know that $\frac{X_{ij}-\mu}{\sigma} \sim \text{Norm}(\mu,\sigma^2)$. Then by (c), we can get $\frac{(X_{ij}-\mu)^2}{\sigma^2} \sim \mathcal{X}^2(1)$. 
+
+
+
+By (f), $\sum_{i=1}^{n_j} (X_{ij}-\bar{X_j})^2$ is independent of $n_j\frac{(\mu -\bar{X_j})^2}{\sigma^2}$. 
 
 
 
